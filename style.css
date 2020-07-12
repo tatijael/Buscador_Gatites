@@ -96,3 +96,12 @@ i {
 .icon:hover i {
   transform: scale(1.1);
 }
+.cat-spinner {
+  display: none;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.cat-spinner.is-loading {
+  display: flex
+}
