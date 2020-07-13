@@ -10,6 +10,9 @@ const inputSearchRazas = document.getElementById("breed-search-input");
 const btnInputSearchRazas = document.getElementById("breed-search-btn");
 const resultSearch = document.querySelector("#breed-search-results")
 const  selectDropdown = document.getElementById("breed-dropdown")
+const description = document.querySelector("#breed-description")
+const imgRaza = document.querySelector("#breed-img")
+const tituloRaza = document.getElementById("breed-name")
 
 const clearAllClass = () => {
   menus.forEach((element) => {
@@ -48,14 +51,14 @@ const randomGatite = async () => {
   catImg.height = randomGatit.height;
 };
 
-const spinner = (seccion, estado)=>{
- const spinner = seccion.querySelector('.cat-spinner');
-   if(estado === "ocultar") {
-    spinner.classList.remove('is-loading');
-    } else {
-    spinner.classList.add('is-loading');
-    }
-};
+// const spinner = (seccion, estado)=>{
+//  const spinner = seccion.querySelector('.cat-spinner');
+//    if(estado === "ocultar") {
+//     spinner.classList.remove('is-loading');
+//     } else {
+//     spinner.classList.add('is-loading');
+//     }
+// };
 
 
 const searchRazas = async (name) => {
@@ -80,20 +83,37 @@ btnInputSearchRazas.addEventListener("click", (e) => {
   searchRazas(inputSearchRazas.value);
   
 });
-
-const seccionRazas = async (data) =>{
+let descriptionRaza;
+const seccionRazas = async () =>{
   const response = await fetch(`https://api.thecatapi.com/v1/breeds`
   );
-  const descriptionRaza = await response.json();
+   descriptionRaza = await response.json();
+  
 
   selectDropdown.innerHTML = descriptionRaza.reduce((html, raza)=>{
     return (html + `<option value="${raza.id}">${raza.name}</option>`)
-  },``)
+  },``);
+
+
+
+  selectDropdown.addEventListener("change", (e) =>{
+   changeInfo();
+  })
+  changeInfo();
+  changeImg()
 }
+
+const changeInfo = async ()=>{
+  const gatito = descriptionRaza.find(description => selectDropdown.value == description.id)
+    description.innerHTML = `<p>${gatito.description}</p>`
+    tituloRaza.innerHTML = `<h1>${gatito.id}</h1>`
+    let imagen = await fetch (`https://api.thecatapi.com/v1/images/search?breed_id=${gatito.id}`)
+    imagen = await imagen.json();
+    imgRaza.src = imagen[0].url
+
+  }
+ 
 seccionRazas()
-
-
-
     
 randomGatite();
 

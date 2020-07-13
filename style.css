@@ -1,5 +1,10 @@
+
+
 .title {
   text-align: center;
+  font-size: 80px;
+  font-family: 'Amatic SC', cursive;
+  font-weight: 10px;
   
 }
 
@@ -8,11 +13,12 @@
 }
 
 .tab-container {
-  margin-bottom: 30px;
+  margin-bottom: 1px;
+
 }
 
 .mt-4 {
-  margin-top: 40px;
+  margin-top: 10px;
 }
 
 .mb-2 {
@@ -104,4 +110,8 @@ i {
 
 .cat-spinner.is-loading {
   display: flex
+}
+
+#breed-name {
+  text-transform: uppercase;
 }
