@@ -12,12 +12,19 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
     />
-    <style>
-      @import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Architects+Daughter&family=Modak&display=swap');
-      </style>
     <link rel="stylesheet" href="style.css" />
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="script.js"></script>
   </head>
   <body>
+    <div class="container mt-4">
+      <div class="content">
+        <div class="is-flex">
+          <p class="ml-2 mr-2" id="username">Hola Ada!</p>
+          <a href="#" id="open-change-user-btn">Cambiar usuario</a>
+        </div>
+      </div>
+    </div>
     <section class="section">
       <h1 class="title">Buscador de gatites</h1>
       <!--
@@ -44,9 +51,6 @@
         <div class="columns is-centered">
           <div class="column is-8">
             <div class="box">
-              <div class="cat-spinner">
-               <img src="364.png" alt="spinner">     
-              </div>
               <figure class="image">
                 <img
                   src="https://bulma.io/images/placeholders/256x256.png"
@@ -75,6 +79,8 @@
       <div class="container tab-section is-hidden" id="breeds">
         <div class="select mb-2">
           <select id="breed-dropdown">
+            <option>Select dropdown</option>
+            <option>With options</option>
           </select>
         </div>
         <!--
@@ -89,7 +95,7 @@
                 <img
                   src="https://bulma.io/images/placeholders/1280x960.png"
                   alt="Placeholder image"
-                  id="breed-img"   
+                  id="breed-img"
                 />
               </figure>
             </div>
@@ -97,7 +103,10 @@
               <div class="content p-1">
                 <h1 id="breed-name">Persa</h1>
                 <p id="breed-description">
-                
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Eveniet dignissimos qui aperiam amet, quia ab quos tempore
+                  sint voluptatem sit earum voluptas numquam ducimus eum quasi,
+                  aliquid vero autem. Doloribus.
                 </p>
                 <div class="tags" id="breed-temperament">
                   <span class="tag">Alegre</span>
@@ -117,12 +126,16 @@
       <div class="container tab-section is-hidden" id="breeds-search">
         <div class="columns">
           <div class="column is-10">
-            <input
-              class="input is-small"
-              type="text"
-              placeholder="Búsqueda"
-              id="breed-search-input"
-            />
+            <div class="field">
+              <div class="control">
+                <input
+                  class="input is-small"
+                  type="text"
+                  placeholder="Búsqueda"
+                  id="breed-search-input"
+                />
+              </div>
+            </div>
           </div>
           <div class="column is-2">
             <button
@@ -140,12 +153,16 @@
         -->
         <table class="table is-striped is-fullwidth">
           <tbody id="breed-search-results">
-           
+            <tr>
+              <td>Una raza</td>
+            </tr>
+            <tr>
+              <td>Otra raza</td>
+            </tr>
           </tbody>
         </table>
       </div>
-
-               <!--
+      <!--
         ===================================
         FILTRADO DE RAZAS
         ===================================
@@ -156,35 +173,63 @@
             <div class="content">
               <h3>Filtros</h3>
               <label class="checkbox">
-                <input type="checkbox" class="breed-filter" value="hairless">
+                <input
+                  type="checkbox"
+                  class="breed-filter"
+                  data-filter="hairless"
+                />
                 Sin pelo
               </label>
               <label class="checkbox">
-                <input type="checkbox" class="breed-filter" value="rex">
+                <input type="checkbox" class="breed-filter" data-filter="rex" />
                 Con rulos
               </label>
               <label class="checkbox">
-                <input type="checkbox" class="breed-filter" value="natural">
+                <input
+                  type="checkbox"
+                  class="breed-filter"
+                  data-filter="natural"
+                />
                 Natural
               </label>
               <label class="checkbox">
-                <input type="checkbox" class="breed-filter" value="experimental">
+                <input
+                  type="checkbox"
+                  class="breed-filter"
+                  data-filter="experimental"
+                />
                 De criadero
               </label>
               <label class="checkbox">
-                <input type="checkbox" class="breed-filter" value="rare">
+                <input
+                  type="checkbox"
+                  class="breed-filter"
+                  data-filter="rare"
+                />
                 Exótico
               </label>
               <label class="checkbox">
-                <input type="checkbox" class="breed-filter" value="supress_tail">
+                <input
+                  type="checkbox"
+                  class="breed-filter"
+                  data-filter="supress_tail"
+                />
                 Sin cola
               </label>
               <label class="checkbox">
-                <input type="checkbox" class="breed-filter" value="short_legs">
+                <input
+                  type="checkbox"
+                  class="breed-filter"
+                  data-filter="short_legs"
+                />
                 Piernas cortas
               </label>
               <label class="checkbox">
-                <input type="checkbox" class="breed-filter" value="hypoallergenic">
+                <input
+                  type="checkbox"
+                  class="breed-filter"
+                  data-filter="hypoallergenic"
+                />
                 Hipoalergénico
               </label>
             </div>
@@ -197,7 +242,21 @@
               <!-- 
                 **** Template a copiar ****
                -->
-              
+              <div class="column is-6">
+                <div class="card">
+                  <div class="card-image">
+                    <figure class="image is-4by3">
+                      <img
+                        src="https://bulma.io/images/placeholders/1280x960.png"
+                        alt="Placeholder image"
+                      />
+                    </figure>
+                  </div>
+                  <div class="card-content">
+                    <p class="title is-5">Raza</p>
+                  </div>
+                </div>
+              </div>
               <!-- 
                 **** Fin template ****
                -->
@@ -206,7 +265,5 @@
         </div>
       </div>
     </section>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="script.js"></script>
   </body>
 </html>
