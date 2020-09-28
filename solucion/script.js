@@ -66,6 +66,7 @@ const obtenerRaza = (raza) => {
   axios
     .get(`https://api.thecatapi.com/v1/breeds/${raza}`)
     .then((response) => actualizarInfoCardRaza(response.data));
+  
 };
 
 /**
@@ -176,7 +177,7 @@ const actualizarDropdownRazas = (razas) => {
   dropdown.innerHTML = "";
 
   const htmlRazas = razas
-    .map((raza, i) => `<option value=${raza.id}>${raza.name}</option>`)
+    .map((raza) => `<option value=${raza.id}>${raza.name}</option>`)
     .join("");
 
   dropdown.innerHTML = htmlRazas;
@@ -252,12 +253,32 @@ const inicializarBuscadorRazas = () => {
     buscarRazas(busqueda);
   });
 };
+const createCard = (breeds) => {
+  const breedResults = document.getElementById("breed-results");
+  breedResults.innerHTML = breeds.reduce((html, cat) => {
+      return html + ` <div class="column is-6">
+          <div class="card">
+              <div class="card-image">
+                  <figure class="image is-4by3">
+                  
+                      <img src="${cat.img}" alt="Placeholder image" />
+                      
+                  </figure>
+              </div>
+              <div class="card-content">
+                  <p id="breed-name-filter" class="title is-5">${cat.name}</p>
+              </div>
+          </div>
+      </div>`
+  }, "");
+}
 
 const inicializar = () => {
   inicializarTabs();
   inicializarGatiteAleatorio();
   inicializarRazas();
   inicializarBuscadorRazas();
+  createCard()
 };
 
 window.onload = inicializar;
